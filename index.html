@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8bit HeadFlicker | Coin Flip Arena</title>
+  <meta name="description" content="The official coin flip arena for 8bit HeadFlicker. Predict Heads or Tails during live streams on Kick and YouTube. Powered by S8UL." />
+  <meta property="og:title" content="8bit HeadFlicker – Coin Flip Arena" />
+  <meta property="og:description" content="Predict Heads or Tails in the ultimate coin flip showdown by 8bit HeadFlicker!" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <!-- Channel Banner Background -->
+  <div class="bg-banner"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-gradient-overlay"></div>
+  <div id="particles-container"></div>
+
+  <!-- Screen Flash Effect -->
+  <div class="screen-flash" id="screenFlash"></div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- Coin shadow on ground -->
+  <div class="coin-shadow" id="coinShadow"></div>
+
+  <div class="app-container">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+      <a href="#" class="navbar-brand">
+        <img class="brand-logo" src="channels4_profile.jpg" alt="8bit HeadFlicker" />
+        <div class="brand-text">
+          <span class="brand-name"><span>8bit</span> HeadFlicker</span>
+          <span class="brand-subtitle">Coin Flip Arena</span>
+        </div>
+      </a>
+      <div class="navbar-links">
+        <a href="https://kick.com/8bitheadflicker" target="_blank" rel="noopener" class="nav-link nav-link--kick" id="kickLink">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.207 4.863l-2.07 2.07-2.071 2.07L9 7.003V3H5v18h4v-4.003l2.066-1.998 2.071 2.068L15.207 19.137 19 21l-4.795-7.26.002-.003L19 6 15.207 4.863z"/>
+          </svg>
+          <span>Kick</span>
+        </a>
+        <a href="https://www.youtube.com/@8bitHeadFlickerr" target="_blank" rel="noopener" class="nav-link nav-link--yt" id="youtubeLink">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>YouTube</span>
+        </a>
+        <a href="https://www.instagram.com/8bit_headflicker/" target="_blank" rel="noopener" class="nav-link nav-link--ig" id="instaLink">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT — SINGLE VIEWPORT ===== -->
+    <main class="main-content">
+
+      <!-- LEFT PANEL: Stats + History -->
+      <aside class="panel panel--left">
+        <div class="panel-card">
+          <div class="stat-row">
+            <div class="stat-item">
+              <span class="stat-value stat-value--heads" id="headsCount">0</span>
+              <span class="stat-label">Heads</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value stat-value--total" id="totalFlips">0</span>
+              <span class="stat-label">Flips</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value stat-value--tails" id="tailsCount">0</span>
+              <span class="stat-label">Tails</span>
+            </div>
+          </div>
+
+          <div class="prob-bar-container">
+            <div class="prob-bar-fill prob-bar-fill--heads" id="probBarHeads" style="width: 50%;"></div>
+            <div class="prob-bar-fill prob-bar-fill--tails" id="probBarTails" style="width: 50%;"></div>
+          </div>
+          <div class="prob-labels">
+            <span class="prob-label--heads" id="probLabelHeads">50%</span>
+            <span class="prob-label--tails" id="probLabelTails">50%</span>
+          </div>
+        </div>
+
+        <div class="panel-card panel-card--history">
+          <div class="history-header">
+            <span class="history-title">Recent Flips</span>
+          </div>
+          <div class="history-track" id="historyTrack"></div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-card-title">My prediction</div>
+          <div class="quick-picks">
+            <button class="pick-button pick-button--heads" id="pickHeads" aria-label="Predict Heads">
+              <span class="pick-icon">👑</span>
+              <span>Heads</span>
+            </button>
+            <button class="pick-button pick-button--tails" id="pickTails" aria-label="Predict Tails">
+              <span class="pick-icon">⚡</span>
+              <span>Tails</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="streak-badge" id="streakBadge">
+            <span class="fire">🔥</span>
+            <span id="streakText">No streak yet</span>
+          </div>
+          <div class="badge-row">
+            <div class="hero-badge">
+              <span class="dot"></span>
+              8bit HeadFlicker
+            </div>
+          </div>
+        </div>
+
+        <button class="reset-button-main" id="resetBtn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+            <path d="M12 2.75a9.25 9.25 0 1 0 4.737 17.197l-1.077-1.681A7.25 7.25 0 1 1 19.25 12h-2.188l3.468 4.398L24 12h-2.75A9.25 9.25 0 0 0 12 2.75z" fill="currentColor"/>
+          </svg>
+          Reset All Data
+        </button>
+      </aside>
+
+      <!-- CENTER: Coin Arena -->
+      <section class="center-stage">
+        <h1 class="hero-title">
+          <span class="gradient-text">Coin Flip</span> Arena
+        </h1>
+
+        <!-- Mode Selection & Scoreboard -->
+        <div class="mode-container">
+          <div class="mode-toggle">
+            <button class="mode-btn active" id="modeSingle">Single Flip</button>
+            <button class="mode-btn" id="modeBo3">Best of 3</button>
+          </div>
+          
+          <div class="bo3-scoreboard" id="bo3Scoreboard" style="display: none;">
+            <div class="bo3-team bo3-team--heads">
+              <span class="bo3-name">Heads</span>
+              <div class="bo3-dots" id="bo3DotsHeads">
+                <div class="bo3-dot"></div>
+                <div class="bo3-dot"></div>
+              </div>
+            </div>
+            <div class="bo3-vs">VS</div>
+            <div class="bo3-team bo3-team--tails">
+              <span class="bo3-name">Tails</span>
+              <div class="bo3-dots" id="bo3DotsTails">
+                <div class="bo3-dot"></div>
+                <div class="bo3-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coin Arena -->
+        <div class="coin-arena" id="coinArena">
+          <div class="coin-glow-ring"></div>
+          <div class="coin-glow-ring"></div>
+
+          <div class="coin-wrapper" id="coinWrapper">
+            <div class="coin" id="coin">
+              <div class="coin-face coin-face--heads">
+                <span class="coin-letter">H</span>
+              </div>
+              <div class="coin-face coin-face--tails">
+                <span class="coin-letter">T</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Display -->
+        <div class="result-display" id="resultDisplay">
+          <div class="result-text" id="resultText"></div>
+          <div class="result-subtitle" id="resultSubtitle"></div>
+          <div class="prediction-result" id="predictionResult"></div>
+        </div>
+
+        <!-- Flip Button -->
+        <button class="flip-button" id="flipBtn" aria-label="Flip the coin">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+          </svg>
+          Flip Coin
+        </button>
+        <div class="shortcut-hint">
+          <span class="kbd">Space</span> to flip · <span class="kbd">H</span> / <span class="kbd">T</span> to predict
+        </div>
+      </section>
+
+      <!-- Resizer Handle -->
+      <div class="chat-resizer" id="chatResizer"></div>
+
+      <!-- RIGHT PANEL: Kick Chat -->
+      <aside class="panel panel--right">
+        <!-- Kick Chat Embed -->
+        <iframe class="kick-chat-embed" src="https://kick.com/popout/8bitheadflicker/chat" frameborder="0" scrolling="no"></iframe>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- Sound Toggle -->
+  <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound effects">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="soundIcon">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" id="soundWave1"></path>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" id="soundWave2"></path>
+    </svg>
+  </button>
+
+  <script src="index.js"></script>
+</body>
+</html>
